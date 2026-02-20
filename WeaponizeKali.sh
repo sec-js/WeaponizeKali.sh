@@ -254,6 +254,8 @@ BloodHound() {
 	downloadRawFile "https://github.com/CompassSecurity/BloodHoundQueries/raw/master/BloodHound_Custom_Queries/customqueries.json" /tmp/customqueries2.json
 	downloadRawFile "https://github.com/ZephrFish/Bloodhound-CustomQueries/raw/main/customqueries.json" /tmp/customqueries3.json
 	downloadRawFile "https://github.com/ly4k/Certipy/raw/main/customqueries.json" /tmp/customqueries4.json
+	downloadRawFile "https://github.com/emiliensocchi/azurehound-queries/raw/main/customqueries.json" /tmp/customqueries5.json
+	downloadRawFile "https://github.com/snovvcrash/WeaponizeKali.sh/raw/refs/heads/main/misc/customqueries.json" /tmp/customqueries6.json
 
 	python3 - << 'EOT'
 import json
