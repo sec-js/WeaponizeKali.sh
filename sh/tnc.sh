@@ -184,12 +184,12 @@ check_port() {
     local timeout="$1"
     local host="$2"
     local port="$3"
-    local do_resolve="$4"
+    local force_resolve="$4"
 
     # With resolve:    nc  -vzw<T>  (lets nc do DNS resolution / shows resolved name)
     # Without resolve: nc -nvzw<T>  (-n skips DNS)
     local nc_flags
-    if [[ "$do_resolve" == "true" ]]; then
+    if [[ "$force_resolve" == "true" ]] || ! [[ "$host" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         nc_flags="-vzw${timeout}"
     else
         nc_flags="-nvzw${timeout}"
