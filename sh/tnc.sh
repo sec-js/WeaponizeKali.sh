@@ -209,7 +209,13 @@ export -f check_port 2>/dev/null || true
 export RED GRN YEL CYN RST 2>/dev/null || true
 
 # ─── Build target list ───────────────────────────────────────────────────────
-mapfile -t IP_LIST   < <(expand_ips "$IP_ARG"  | sort -u -t'.' -k1,1n -k2,2n -k3,3n -k4,4n)
+RAW_TARGETS="$(expand_ips "$IP_ARG")"
+mapfile -t IP_LIST < <(
+    {
+        { grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' <<< "$RAW_TARGETS" || true; } | sort -u -t'.' -k1,1n -k2,2n -k3,3n -k4,4n
+        { grep -vE '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' <<< "$RAW_TARGETS" || true; } | sort -u
+    } | awk 'NF'
+)
 mapfile -t PORT_LIST < <(expand_ports "$PORT_ARG" | sort -nu)
 
 TOTAL_IPS=${#IP_LIST[@]}
